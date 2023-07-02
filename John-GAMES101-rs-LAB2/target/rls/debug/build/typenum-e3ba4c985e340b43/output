@@ -1,3 +1,3 @@
 cargo:rerun-if-changed=build/main.rs
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/kr/Desktop/GAMES101-RUST-2023/2/target/rls/debug/build/typenum-e3ba4c985e340b43/out/consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=/Users/kr/Desktop/GAMES101-RUST-2023/2/target/rls/debug/build/typenum-e3ba4c985e340b43/out/op.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/kr/Desktop/GAMES101-RUST-2023/John-GAMES101-rs-LAB2/target/rls/debug/build/typenum-e3ba4c985e340b43/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/kr/Desktop/GAMES101-RUST-2023/John-GAMES101-rs-LAB2/target/rls/debug/build/typenum-e3ba4c985e340b43/out/op.rs
