@@ -352,5 +352,7 @@ frame count: 14
 frame count: 15
 ```
 
-出现一行行的 `frame count: ` 和一张渲染好的图片即说明环境配置成功，正常来说，你可以在屏幕中央看到一条绿色的直线。
+出现一行行的 `frame count: ` 和一张渲染好的图片即说明环境配置成功，正常来说，你可以在屏幕中央看到一条绿色的直线，如下图所示。
+
+<img src="./initial_image.png" style="zoom:50%;" />
 
