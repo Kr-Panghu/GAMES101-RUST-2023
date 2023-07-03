@@ -4,6 +4,8 @@ You can reach the lab requirements at [GAMES101-RUST-课程要求](https://notes
 
 You can reach the lab tutorial at [GAMES101-RUST-教程](https://notes.sjtu.edu.cn/s/nHmmmUAl8)
 
+Use `git clone https://github.com/Kr-Panghu/GAMES101-RUST-2023` to get start.
+
 ---
 
 
