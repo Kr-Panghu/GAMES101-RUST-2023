@@ -100,6 +100,8 @@ impl Rasterizer {
 
     pub fn draw(&mut self, triangles: &Vec<Triangle>) {
         let mvp = self.projection * self.view * self.model;
+
+        // 遍历每个小三角形
         for triangle in triangles { 
             self.rasterize_triangle(&triangle, mvp); 
         }
@@ -120,13 +122,14 @@ impl Rasterizer {
 
     fn get_new_tri(t: &Triangle, view: Matrix4<f64>, model: Matrix4<f64>, mvp: Matrix4<f64>,
                     (width, height): (u64, u64)) -> (Triangle, Vec<Vector3<f64>>) {
-        let f1 = (50.0 - 0.1) / 2.0;
-        let f2 = (50.0 + 0.1) / 2.0;
+        let f1 = (50.0 - 0.1) / 2.0; // zfar和znear距离的一半
+        let f2 = (50.0 + 0.1) / 2.0; // zfar和znear的中心z坐标
         let mut new_tri = (*t).clone();
         let mm: Vec<Vector4<f64>> = (0..3).map(|i| view * model * t.v[i]).collect();
         let view_space_pos: Vec<Vector3<f64>> = mm.iter().map(|v| v.xyz()).collect();
         let mut v: Vec<Vector4<f64>> = (0..3).map(|i| mvp * t.v[i]).collect();
 
+        // 换算齐次坐标
         for vec in v.iter_mut() {
             vec.x /= vec.w;
             vec.y /= vec.w;
@@ -134,6 +137,8 @@ impl Rasterizer {
         }
         let inv_trans = (view * model).try_inverse().unwrap().transpose();
         let n: Vec<Vector4<f64>> = (0..3).map(|i| inv_trans * to_vec4(t.normal[i], Some(0.0))).collect();
+
+        // 视口变换得到顶点在屏幕上的坐标, 即screen space
         for vert in v.iter_mut() {
             vert.x = 0.5 * width as f64 * (vert.x + 1.0);
             vert.y = 0.5 * height as f64 * (vert.y + 1.0);

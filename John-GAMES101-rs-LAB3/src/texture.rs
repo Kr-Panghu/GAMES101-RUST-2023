@@ -32,4 +32,10 @@ impl Texture {
 
         Vector3::new(color[2] as f64, color[1] as f64, color[0] as f64)
     }
+
+    pub fn getColorBilinear(&self, mut u: f64, mut v: f64) -> Vector3<f64> {
+        // 在此实现双线性插值函数, 并替换掉get_color
+
+        Vector3::new(0.0, 0.0, 0.0)
+    }
 }

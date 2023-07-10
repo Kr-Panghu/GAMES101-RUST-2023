@@ -61,10 +61,12 @@ pub fn load_triangles(obj_file: &str) -> Vec<Triangle> {
     let n = mesh.indices.len() / 3;
     let mut triangles = vec![Triangle::default(); n];
 
+    // 遍历模型的每个面
     for vtx in 0..n {
         let rg = vtx * 3..vtx * 3 + 3;
         let idx: Vec<_> = mesh.indices[rg.clone()].iter().map(|i| *i as usize).collect();
 
+        // 记录图形每个面中连续三个顶点（小三角形）
         for j in 0..3 {
             let v = &mesh.positions[3 * idx[j]..3 * idx[j] + 3];
             triangles[vtx].set_vertex(j, Vector4::new(v[0] as f64, v[1] as f64, v[2] as f64, 1.0));
@@ -77,6 +79,7 @@ pub fn load_triangles(obj_file: &str) -> Vec<Triangle> {
     triangles
 }
 
+// 选择对应的Shader
 pub fn choose_shader_texture(method: &str,
                              obj_path: &str) -> (fn(&FragmentShaderPayload) -> Vector3<f64>, Option<Texture>) {
     let mut active_shader: fn(&FragmentShaderPayload) -> Vector3<f64> = phong_fragment_shader;
@@ -118,10 +121,12 @@ pub fn normal_fragment_shader(payload: &FragmentShaderPayload) -> V3f {
 }
 
 pub fn phong_fragment_shader(payload: &FragmentShaderPayload) -> V3f {
+    // 泛光、漫反射、高光系数
     let ka = Vector3::new(0.005, 0.005, 0.005);
     let kd = payload.color;
     let ks = Vector3::new(0.7937, 0.7937, 0.7937);
 
+    // 灯光位置和强度
     let l1 = Light {
         position: Vector3::new(20.0, 20.0, 20.0),
         intensity: Vector3::new(500.0, 500.0, 500.0),
@@ -136,11 +141,12 @@ pub fn phong_fragment_shader(payload: &FragmentShaderPayload) -> V3f {
 
     let p = 150.0;
 
+    // ping point的信息
     let normal = payload.normal;
     let point = payload.view_pos;
     let color = payload.color;
 
-    let mut result_color = Vector3::zeros();
+    let mut result_color = Vector3::zeros(); // 保存光照结果
     
     // <遍历每一束光>
     for light in lights {
@@ -157,11 +163,11 @@ pub fn texture_fragment_shader(payload: &FragmentShaderPayload) -> V3f {
     let texture_color: Vector3<f64> = match &payload.texture {
         // TODO: Get the texture value at the texture coordinates of the current fragment
         // <获取材质颜色信息>
-        
+
         None => Vector3::new(0.0, 0.0, 0.0),
         Some(texture) => Vector3::new(0.0, 0.0, 0.0), // Do modification here
     };
-    let kd = texture_color / 255.0;
+    let kd = texture_color / 255.0; // 材质颜色影响漫反射系数
     let ks = Vector3::new(0.7937, 0.7937, 0.7937);
 
     let l1 = Light {
