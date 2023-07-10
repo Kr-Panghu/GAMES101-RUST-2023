@@ -1,0 +1,12 @@
+[package]
+name = "games101"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nalgebra = "0.32.1"
+opencv = "0.77.0"
+tobj = "3.2.4"
+
